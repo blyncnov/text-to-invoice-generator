@@ -8,9 +8,24 @@ import { SatisfyQo } from "@/app/fonts";
 const InvoiceDetails = () => {
   const [products, setProducts] = useState([
     { id: 1, desc: "SEO analysis", price: 200, qty: 1 },
-    { id: 2, desc: "Website landing page", price: 4000, qty: 3 },
+    { id: 2, desc: "Content Writing", price: 15, qty: 2 },
+    { id: 3, desc: "Website landing page", price: 4000, qty: 3 },
   ]);
-  const [isLastItem, setIsLastItem] = useState(false);
+
+  const handleAddNewProduct = () => {
+    // Initiate New Product
+    const newProduct = {
+      id: products.length + 1,
+      desc: "New Product",
+      price: 70,
+      qty: 20,
+    };
+
+    // Add new Product to Array!
+    setProducts((prev) => [...prev, newProduct]);
+  };
+
+  console.log(products);
 
   return (
     <main className="w-full max-w-[90%] py-6 mx-auto">
@@ -35,11 +50,12 @@ const InvoiceDetails = () => {
                   <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
                 </svg>
               </div>
+
               <div className="w-auto pb-4">
                 <h1 className="text-3xl font-normal">INVOICE_56847</h1>
               </div>
 
-              <div className="invoice_info w-full grid grid-cols-1 lg:grid-cols-2 gap-x-[50px] gap-y-10 divide-y divide-x-0 md:divide-y-0 md:divide-x divide-main/10">
+              <div className="invoice_info w-full grid grid-cols-1 lg:grid-cols-2 gap-x-[50px] gap-y-5 md:gap-y-10 divide-y divide-x-0 lg:divide-y-0 lg:divide-x divide-main/10">
                 <div className="invoice_right_information w-full">
                   <div className="w-auto pb-3">
                     <h3
@@ -73,7 +89,7 @@ const InvoiceDetails = () => {
                   </div>
                 </div>
 
-                <div className="invoice_left_information w-full md:pl-10 md:pt-0 pt-10">
+                <div className="invoice_left_information w-full lg:pl-10 lg:pt-0 pt-5">
                   <div className="w-auto pb-3">
                     <h3
                       className={`text-2xl text-main font-normal ${SatisfyQo.className}`}
@@ -110,7 +126,7 @@ const InvoiceDetails = () => {
                         type="text"
                         name="to_email_address"
                         id="to_email_address"
-                        placeholder="Tamac"
+                        placeholder="info@text-invoice.io"
                         className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                       />
                     </div>
@@ -161,30 +177,31 @@ const InvoiceDetails = () => {
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <input
-                      type="text"
+                      type="number"
                       name="p_qty"
                       id="p_qty"
                       defaultValue={product.qty}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <input
-                      type="text"
+                      type="number"
                       name="p_price"
                       id="p_price"
                       defaultValue={product.price}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <input
-                      type="text"
+                      type="number"
                       name="p_sub_total"
                       id="p_sub_total"
                       defaultValue={product.price * product.qty}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <div>
-                      {!isLastItem ? (
+                      {products.indexOf(product) === products.length - 1 ? (
                         <button
                           type="button"
+                          onClick={handleAddNewProduct}
                           className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(194,143,14,0.1)] border border-main/40"
                         >
                           <svg
