@@ -286,6 +286,23 @@ const InvoiceDetails = () => {
             })}
           </div>
         </section>
+
+        <div className="w-full py-6">
+          <div className="w-full h-[1px] bg-main/5"></div>
+        </div>
+
+        <section className="w-full">
+          <div className="w-full grid grid-cols-1 gap-1">
+            <div className="w-full px-2 flex items-center gap-3">
+              <label className="inline-flex items-center cursor-pointer gap-3">
+                <input type="checkbox" value="" className="sr-only peer" />
+                <div className="relative w-11 h-6 bg-white rounded-full peer peer-focus:ring-4 peer-focus:ring-transparent peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-main after:content-[''] after:absolute after:top-[1px] after:start-[2px] after:bg-main after:border-main after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[rgba(26,19,4,0.9)] border border-main/50"></div>
+              </label>
+
+              <span className="text-base">Include Tax</span>
+            </div>
+          </div>
+        </section>
       </div>
     </main>
   );
