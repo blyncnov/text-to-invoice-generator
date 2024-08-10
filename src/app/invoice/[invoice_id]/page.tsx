@@ -25,6 +25,11 @@ const InvoiceDetails = () => {
     setProducts((prev) => [...prev, newProduct]);
   };
 
+  const handleRemoveAProduct = () => {
+    // Remove A Product
+    setProducts((prev) => [...prev]);
+  };
+
   console.log(products);
 
   return (
@@ -223,6 +228,7 @@ const InvoiceDetails = () => {
                       ) : (
                         <button
                           type="button"
+                          onClick={handleRemoveAProduct}
                           className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(204,14,0,0.1)] border border-[rgba(204,14,0,0.47)]"
                         >
                           <svg
