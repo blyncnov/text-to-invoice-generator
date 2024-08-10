@@ -203,27 +203,54 @@ const InvoiceDetails = () => {
                     />
                     <div>
                       {products.indexOf(product) === products.length - 1 ? (
-                        <button
-                          type="button"
-                          onClick={handleAddNewProduct}
-                          className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(194,143,14,0.1)] border border-main/40"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="30"
-                            height="30"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#C28E0E"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="lucide lucide-plus"
+                        <div className="w-auto flex items-center gap-3">
+                          <button
+                            type="button"
+                            onClick={handleAddNewProduct}
+                            className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(194,143,14,0.1)] border border-main/40"
                           >
-                            <path d="M5 12h14" />
-                            <path d="M12 5v14" />
-                          </svg>
-                        </button>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="30"
+                              height="30"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#C28E0E"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-plus"
+                            >
+                              <path d="M5 12h14" />
+                              <path d="M12 5v14" />
+                            </svg>
+                          </button>
+
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveAProduct(product.id)}
+                            className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(204,14,0,0.1)] border border-[rgba(204,14,0,0.47)]"
+                          >
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="24"
+                              height="24"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="#CC0D00"
+                              strokeWidth="2"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              className="lucide lucide-trash-2"
+                            >
+                              <path d="M3 6h18" />
+                              <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                              <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                              <line x1="10" x2="10" y1="11" y2="17" />
+                              <line x1="14" x2="14" y1="11" y2="17" />
+                            </svg>
+                          </button>
+                        </div>
                       ) : (
                         <button
                           type="button"
