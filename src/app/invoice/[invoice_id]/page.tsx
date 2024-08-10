@@ -33,7 +33,7 @@ const InvoiceDetails = () => {
 
   return (
     <main className="w-full max-w-[90%] py-6 mx-auto">
-      <div className="w-full h-full min-h-[calc(87dvh-24px)] text-sm rounded-xl">
+      <div className="w-full h-full text-sm rounded-xl">
         <section className="w-full h-full grid grid-cols-1 gap-5">
           <div className="w-full h-full text-sm py-2 rounded-xl">
             <div className="w-full flex flex-col gap-4">
@@ -147,7 +147,7 @@ const InvoiceDetails = () => {
 
         <section className="w-full flex flex-col gap-5">
           <div className="w-full grid grid-cols-1 gap-3">
-            <div className="w-full grid grid-cols-[65%_1fr_1fr_1fr_auto] items-center gap-3">
+            <div className="w-full grid grid-cols-[auto_auto_auto_auto_auto] md:grid-cols-[65%_1fr_1fr_1fr_auto] items-center gap-x-6 md:gap-3 overflow-x-scroll no-scrollbar whitespace-nowrap">
               <div>
                 <p className="px-2 text-base">Product description</p>
               </div>
@@ -171,7 +171,7 @@ const InvoiceDetails = () => {
                   key={product.id}
                   className="w-full text-sm bg-[rgba(26,19,4,0.5)] p-2 rounded-xl"
                 >
-                  <div className="w-full grid grid-cols-[65%_1fr_1fr_1fr_auto] items-center gap-3">
+                  <div className="w-full grid grid-cols-1 md:grid-cols-[65%_1fr_1fr_1fr_auto] items-center gap-3">
                     <input
                       type="text"
                       name="p_name"
@@ -291,15 +291,30 @@ const InvoiceDetails = () => {
           <div className="w-full h-[1px] bg-main/5"></div>
         </div>
 
-        <section className="w-full">
-          <div className="w-full grid grid-cols-1 gap-1">
-            <div className="w-full px-2 flex items-center gap-3">
+        <section className="w-full max-w-full min-w-full">
+          <div className="w-full flex md:flex-row flex-col justify-between items-center gap-4">
+            <div className="px-2 flex items-center gap-3 flex-wrap">
               <label className="inline-flex items-center cursor-pointer gap-3">
                 <input type="checkbox" value="" className="sr-only peer" />
                 <div className="relative w-11 h-6 bg-white rounded-full peer peer-focus:ring-4 peer-focus:ring-transparent peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-main after:content-[''] after:absolute after:top-[1px] after:start-[2px] after:bg-main after:border-main after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[rgba(26,19,4,0.9)] border border-main/50"></div>
               </label>
+              <div>
+                <h4 className="text-base">Include Tax (%)</h4>
+              </div>
+              <div className="w-auto flex gap-2 items-center">
+                <input
+                  type="text"
+                  name="tax"
+                  id="tax"
+                  value={10}
+                  className="w-[40px] text-center rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
+                />
+              </div>
+            </div>
 
-              <span className="text-base">Include Tax</span>
+            <div className={`flex items-center gap-3 ${SatisfyQo.className}`}>
+              <h4 className="text-base">Total Amount:</h4>
+              <h4 className="text-3xl text-main">{"$300.00"}</h4>
             </div>
           </div>
         </section>
