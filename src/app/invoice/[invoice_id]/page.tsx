@@ -182,10 +182,10 @@ const InvoiceDetails = () => {
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <div>
-                      {isLastItem ? (
+                      {!isLastItem ? (
                         <button
                           type="button"
-                          className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(27,22,12,0.9)] border border-main/40"
+                          className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(194,143,14,0.1)] border border-main/40"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -193,7 +193,7 @@ const InvoiceDetails = () => {
                             height="30"
                             viewBox="0 0 24 24"
                             fill="none"
-                            stroke="currentColor"
+                            stroke="#C28E0E"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -206,7 +206,7 @@ const InvoiceDetails = () => {
                       ) : (
                         <button
                           type="button"
-                          className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(27,22,12,0.9)] border border-main/40"
+                          className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(204,14,0,0.1)] border border-[rgba(204,14,0,0.47)]"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -214,7 +214,7 @@ const InvoiceDetails = () => {
                             height="24"
                             viewBox="0 0 24 24"
                             fill="none"
-                            stroke="currentColor"
+                            stroke="#CC0D00"
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
