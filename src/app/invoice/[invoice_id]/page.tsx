@@ -12,25 +12,24 @@ const InvoiceDetails = () => {
     { id: 3, desc: "Website landing page", price: 4000, qty: 3 },
   ]);
 
+  // TODO: ADD NEW PRODUCT ITEM
   const handleAddNewProduct = () => {
-    // Initiate New Product
-    const newProduct = {
-      id: products.length + 1,
-      desc: "",
-      price: 0,
-      qty: 0,
-    };
-
-    // Add new Product to Array!
-    setProducts((prev) => [...prev, newProduct]);
+    setProducts((prev) => [
+      ...prev,
+      {
+        id: products.length + 1,
+        desc: "",
+        price: 0,
+        qty: 0,
+      },
+    ]);
   };
 
-  const handleRemoveAProduct = () => {
-    // Remove A Product
-    setProducts((prev) => [...prev]);
+  // TODO: REMOVE PRODUCT ITEM
+  const handleRemoveAProduct = (id: number) => {
+    const p = products.filter((p) => p.id !== id);
+    setProducts(p);
   };
-
-  console.log(products);
 
   return (
     <main className="w-full max-w-[90%] py-6 mx-auto">
@@ -228,7 +227,7 @@ const InvoiceDetails = () => {
                       ) : (
                         <button
                           type="button"
-                          onClick={handleRemoveAProduct}
+                          onClick={() => handleRemoveAProduct(product.id)}
                           className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(204,14,0,0.1)] border border-[rgba(204,14,0,0.47)]"
                         >
                           <svg
