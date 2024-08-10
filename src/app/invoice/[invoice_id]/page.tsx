@@ -16,9 +16,9 @@ const InvoiceDetails = () => {
     // Initiate New Product
     const newProduct = {
       id: products.length + 1,
-      desc: "New Product",
-      price: 70,
-      qty: 20,
+      desc: "",
+      price: 0,
+      qty: 0,
     };
 
     // Add new Product to Array!
@@ -177,7 +177,7 @@ const InvoiceDetails = () => {
                       type="text"
                       name="p_name"
                       id="p_name"
-                      placeholder="Tamac"
+                      placeholder="Add product"
                       defaultValue={product.desc}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
