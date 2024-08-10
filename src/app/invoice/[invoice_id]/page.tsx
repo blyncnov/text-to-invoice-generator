@@ -15,8 +15,8 @@ const InvoiceDetails = () => {
   return (
     <main className="w-full max-w-[90%] py-6 mx-auto">
       <div className="w-full h-full min-h-[calc(87dvh-24px)] text-sm rounded-xl">
-        <section className="w-full h-full grid grid-cols-1 md:grid-cols-[1fr_20%] gap-5">
-          <div className="w-full h-full text-sm px-4 py-2 rounded-xl">
+        <section className="w-full h-full grid grid-cols-1 gap-5">
+          <div className="w-full h-full text-sm py-2 rounded-xl">
             <div className="w-full flex flex-col gap-4">
               <div>
                 <svg
@@ -119,9 +119,6 @@ const InvoiceDetails = () => {
               </div>
             </div>
           </div>
-          <div className="w-full h-full text-sm px-4 py-2 rounded-xl">
-            <div>{/* <h2>Actions</h2> */}</div>
-          </div>
         </section>
 
         <div className="w-full py-6">
@@ -129,7 +126,7 @@ const InvoiceDetails = () => {
         </div>
 
         <section className="w-full flex flex-col gap-5">
-          <div className="w-full max-w-[95%] grid grid-cols-1 gap-3">
+          <div className="w-full grid grid-cols-1 gap-3">
             <div className="w-full grid grid-cols-[65%_1fr_1fr_1fr_auto] items-center gap-3">
               <div>
                 <p className="px-2 text-base">Product description</p>
