@@ -1,9 +1,17 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 
 // Font
 import { SatisfyQo } from "@/app/fonts";
 
 const InvoiceDetails = () => {
+  const [products, setProducts] = useState([
+    { id: 1, desc: "SEO analysis", price: 200, qty: 1 },
+    { id: 2, desc: "Website landing page", price: 4000, qty: 3 },
+  ]);
+  const [isLastItem, setIsLastItem] = useState(false);
+
   return (
     <main className="w-full max-w-[90%] py-6 mx-auto">
       <div className="w-full h-full min-h-[calc(87dvh-24px)] text-sm rounded-xl">
@@ -121,70 +129,108 @@ const InvoiceDetails = () => {
         </div>
 
         <section className="w-full flex flex-col gap-5">
-          <div className="w-full">
-            <h3 className="text-2xl text-white font-normal">Products</h3>
-          </div>
+          <div className="w-full max-w-[95%] grid grid-cols-1 gap-3">
+            <div className="w-full grid grid-cols-[65%_1fr_1fr_1fr_auto] items-center gap-3">
+              <div>
+                <p className="px-2 text-base">Product description</p>
+              </div>
+              <div>
+                <p className="text-base">Quantity</p>
+              </div>
+              <div>
+                <p className="text-base">Price</p>
+              </div>
+              <div>
+                <p className="text-base">Sub Total</p>
+              </div>
+              <div>
+                <p>Actions</p>
+              </div>
+            </div>
 
-          <div className="w-full grid grid-cols-1 gap-3">
-            {[1, 2, 3].map((product, index) => {
+            {products.map((product) => {
               return (
                 <div
-                  key={index}
-                  className="w-full max-w-[90%] text-sm bg-[rgba(26,19,4,0.5)] p-2 rounded-xl"
+                  key={product.id}
+                  className="w-full text-sm bg-[rgba(26,19,4,0.5)] p-2 rounded-xl"
                 >
-                  <div className="w-full grid grid-cols-[70%_1fr_1fr_1fr_auto] items-center gap-3">
+                  <div className="w-full grid grid-cols-[65%_1fr_1fr_1fr_auto] items-center gap-3">
                     <input
                       type="text"
                       name="p_name"
                       id="p_name"
                       placeholder="Tamac"
-                      className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
-                    />
-                    <input
-                      type="text"
-                      name="p_name"
-                      id="p_name"
-                      defaultValue={2}
+                      defaultValue={product.desc}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <input
                       type="text"
                       name="p_qty"
                       id="p_qty"
-                      defaultValue={100}
+                      defaultValue={product.qty}
+                      className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
+                    />
+                    <input
+                      type="text"
+                      name="p_price"
+                      id="p_price"
+                      defaultValue={product.price}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <input
                       type="text"
                       name="p_sub_total"
                       id="p_sub_total"
-                      defaultValue={"$200"}
+                      defaultValue={product.price * product.qty}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <div>
-                      <button
-                        type="button"
-                        className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(27,22,12,0.9)] border border-main/40"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="lucide lucide-trash-2"
+                      {isLastItem ? (
+                        <button
+                          type="button"
+                          className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(27,22,12,0.9)] border border-main/40"
                         >
-                          <path d="M3 6h18" />
-                          <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
-                          <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
-                          <line x1="10" x2="10" y1="11" y2="17" />
-                          <line x1="14" x2="14" y1="11" y2="17" />
-                        </svg>
-                      </button>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="30"
+                            height="30"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-plus"
+                          >
+                            <path d="M5 12h14" />
+                            <path d="M12 5v14" />
+                          </svg>
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          className="w-8 h-8 flex justify-center items-center rounded-lg py-1.5 px-2 bg-[rgba(27,22,12,0.9)] border border-main/40"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-trash-2"
+                          >
+                            <path d="M3 6h18" />
+                            <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6" />
+                            <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2" />
+                            <line x1="10" x2="10" y1="11" y2="17" />
+                            <line x1="14" x2="14" y1="11" y2="17" />
+                          </svg>
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
