@@ -22,4 +22,12 @@ export interface FormProps {
   grandTotal: number;
 }
 
+export interface productFormDataProps {
+  id: number;
+  description: string;
+  quantity: string;
+  unitPrice: string;
+  ItemSubTotal: string;
+}
+
 export default FormProps;

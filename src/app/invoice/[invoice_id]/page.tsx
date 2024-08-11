@@ -5,35 +5,22 @@ import React, { useState } from "react";
 // Font
 import { SatisfyQo } from "@/app/fonts";
 
-// Props
-import { FormProps } from "@/lib/types";
+// Type declarartion
+import { productFormDataProps } from "@/lib/types";
+import { FormatPrice } from "@/lib/formatPrice";
+
+type fieldNameProps = "description" | "quantity" | "unitPrice" | "ItemSubTotal";
 
 const InvoiceDetails = () => {
-  const [products, setProducts] = useState([
+  const [products, setProducts] = useState<productFormDataProps[]>([
     {
       id: 1,
-      description: "Website Design Services",
-      quantity: 1,
-      unitPrice: 1000.0,
-      ItemSubTotal: 1000.0,
-    },
-    {
-      id: 2,
-      description: "Hosting (12 months)",
-      quantity: 1,
-      unitPrice: 120.0,
-      ItemSubTotal: 120.0,
-    },
-    {
-      id: 3,
-      description: "SEO Optimization",
-      quantity: 1,
-      unitPrice: 300.0,
-      ItemSubTotal: 300.0,
+      description: "",
+      quantity: "1",
+      unitPrice: "0",
+      ItemSubTotal: "0",
     },
   ]);
-
-  const [FormData, setFormData] = useState<FormProps>();
 
   // TODO: ADD NEW PRODUCT ITEM
   const handleAddNewProduct = () => {
@@ -42,9 +29,9 @@ const InvoiceDetails = () => {
       {
         id: products.length + 1,
         description: "",
-        quantity: 0,
-        unitPrice: 0,
-        ItemSubTotal: 0,
+        quantity: "0",
+        unitPrice: "0",
+        ItemSubTotal: "0",
       },
     ]);
   };
@@ -60,8 +47,26 @@ const InvoiceDetails = () => {
     index: number
   ) => {
     const { name, value } = e.target;
-    console.log(index, name, value);
+
+    if (name in products[index]) {
+      const updatedProducts = [...products];
+      products[index][name as fieldNameProps] = value;
+
+      // Update Product SubTotal price
+      products[index]["ItemSubTotal"] = (
+        Number(products[index]["unitPrice"]) *
+        Number(products[index]["quantity"])
+      ).toString();
+
+      // Update State
+      setProducts(updatedProducts);
+    } else return;
   };
+
+  // Calculate grand total price
+  const totalPrice = products.reduce((acc, product) => {
+    return acc + Number(product.ItemSubTotal);
+  }, 0);
 
   return (
     <main className="w-full max-w-[90%] py-6 mx-auto">
@@ -206,8 +211,8 @@ const InvoiceDetails = () => {
                   <div className="w-full grid grid-cols-1 md:grid-cols-[65%_1fr_1fr_1fr_auto] items-center gap-3">
                     <input
                       type="text"
-                      name="p_name"
-                      id="p_name"
+                      name="description"
+                      id="description"
                       placeholder="Add product"
                       defaultValue={product.description}
                       onChange={(e) => handleOnChangeEvent(e, index)}
@@ -215,27 +220,25 @@ const InvoiceDetails = () => {
                     />
                     <input
                       type="number"
-                      name="p_qty"
-                      id="p_qty"
+                      name="quantity"
+                      id="quantity"
                       defaultValue={product.quantity}
                       onChange={(e) => handleOnChangeEvent(e, index)}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <input
                       type="number"
-                      name="p_price"
-                      id="p_price"
+                      name="unitPrice"
+                      id="unitPrice"
                       defaultValue={product.unitPrice}
-                      step="0.01"
                       onChange={(e) => handleOnChangeEvent(e, index)}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <input
                       type="number"
-                      name="p_sub_total"
-                      id="p_sub_total"
-                      step="0.01"
-                      defaultValue={product.ItemSubTotal}
+                      name="ItemSubTotal"
+                      id="ItemSubTotal"
+                      value={product.ItemSubTotal}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <div>
@@ -332,7 +335,11 @@ const InvoiceDetails = () => {
           <div className="w-full flex md:flex-row flex-col justify-between items-center gap-4">
             <div className="px-2 flex items-center gap-3 flex-wrap">
               <label className="inline-flex items-center cursor-pointer gap-3">
-                <input type="checkbox" value="" className="sr-only peer" />
+                <input
+                  type="checkbox"
+                  defaultValue=""
+                  className="sr-only peer"
+                />
                 <div className="relative w-11 h-6 bg-white rounded-full peer peer-focus:ring-4 peer-focus:ring-transparent peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-main after:content-[''] after:absolute after:top-[1px] after:start-[2px] after:bg-main after:border-main after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[rgba(26,19,4,0.9)] border border-main/50"></div>
               </label>
               <div>
@@ -343,7 +350,7 @@ const InvoiceDetails = () => {
                   type="text"
                   name="tax"
                   id="tax"
-                  value={10}
+                  defaultValue={10}
                   className="w-[40px] text-center rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                 />
               </div>
@@ -351,7 +358,9 @@ const InvoiceDetails = () => {
 
             <div className={`flex items-center gap-3 ${SatisfyQo.className}`}>
               <h4 className="text-base">Total Amount:</h4>
-              <h4 className="text-3xl text-main">{"$300.00"}</h4>
+              <h4 className="text-3xl text-main">{`$${FormatPrice(
+                totalPrice
+              )}`}</h4>
             </div>
           </div>
         </section>
