@@ -5,12 +5,35 @@ import React, { useState } from "react";
 // Font
 import { SatisfyQo } from "@/app/fonts";
 
+// Props
+import { FormProps } from "@/lib/types";
+
 const InvoiceDetails = () => {
   const [products, setProducts] = useState([
-    { id: 1, desc: "SEO analysis", price: 200, qty: 1 },
-    { id: 2, desc: "Content Writing", price: 15, qty: 2 },
-    { id: 3, desc: "Website landing page", price: 4000, qty: 3 },
+    {
+      id: 1,
+      description: "Website Design Services",
+      quantity: 1,
+      unitPrice: 1000.0,
+      ItemSubTotal: 1000.0,
+    },
+    {
+      id: 2,
+      description: "Hosting (12 months)",
+      quantity: 1,
+      unitPrice: 120.0,
+      ItemSubTotal: 120.0,
+    },
+    {
+      id: 3,
+      description: "SEO Optimization",
+      quantity: 1,
+      unitPrice: 300.0,
+      ItemSubTotal: 300.0,
+    },
   ]);
+
+  const [FormData, setFormData] = useState<FormProps>();
 
   // TODO: ADD NEW PRODUCT ITEM
   const handleAddNewProduct = () => {
@@ -18,9 +41,10 @@ const InvoiceDetails = () => {
       ...prev,
       {
         id: products.length + 1,
-        desc: "",
-        price: 0,
-        qty: 0,
+        description: "",
+        quantity: 0,
+        unitPrice: 0,
+        ItemSubTotal: 0,
       },
     ]);
   };
@@ -29,6 +53,14 @@ const InvoiceDetails = () => {
   const handleRemoveAProduct = (id: number) => {
     const p = products.filter((p) => p.id !== id);
     setProducts(p);
+  };
+
+  const handleOnChangeEvent = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const { name, value } = e.target;
+    console.log(index, name, value);
   };
 
   return (
@@ -56,7 +88,7 @@ const InvoiceDetails = () => {
               </div>
 
               <div className="w-auto pb-4">
-                <h1 className="text-3xl font-normal">INVOICE_56847</h1>
+                <h1 className="text-3xl font-normal">{"INVOICE_56847"}</h1>
               </div>
 
               <div className="invoice_info w-full grid grid-cols-1 lg:grid-cols-2 gap-x-[50px] gap-y-5 md:gap-y-10 divide-y divide-x-0 lg:divide-y-0 lg:divide-x divide-main/10">
@@ -165,7 +197,7 @@ const InvoiceDetails = () => {
               </div>
             </div>
 
-            {products.map((product) => {
+            {products.map((product, index) => {
               return (
                 <div
                   key={product.id}
@@ -177,28 +209,33 @@ const InvoiceDetails = () => {
                       name="p_name"
                       id="p_name"
                       placeholder="Add product"
-                      defaultValue={product.desc}
+                      defaultValue={product.description}
+                      onChange={(e) => handleOnChangeEvent(e, index)}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <input
                       type="number"
                       name="p_qty"
                       id="p_qty"
-                      defaultValue={product.qty}
+                      defaultValue={product.quantity}
+                      onChange={(e) => handleOnChangeEvent(e, index)}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <input
                       type="number"
                       name="p_price"
                       id="p_price"
-                      defaultValue={product.price}
+                      defaultValue={product.unitPrice}
+                      step="0.01"
+                      onChange={(e) => handleOnChangeEvent(e, index)}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <input
                       type="number"
                       name="p_sub_total"
                       id="p_sub_total"
-                      defaultValue={product.price * product.qty}
+                      step="0.01"
+                      defaultValue={product.ItemSubTotal}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <div>

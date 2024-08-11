@@ -1,0 +1,33 @@
+
+{
+  "invoiceNumber": "INV-001",
+  "date": "2024-08-09",
+  "billingInfo": {
+    "name": "John Doe",
+    "address": "123 Main St, Anytown, UK"
+  },
+  "clientInfo": {
+    "name": "Jane Smith",
+    "address": "456 Elm St, Anytown, UK"
+  },
+  "items": [
+    {
+      "description": "Landing Page Development",
+      "quantity": 1,
+      "unitPrice": 3000.00,
+      "total": 3000.00
+    },
+    {
+      "description": "SEO Services",
+      "quantity": 1,
+      "unitPrice": 200.00,
+      "total": 200.00
+    }
+  ],
+  "subTotal": 3200.00,
+  "vat": 640.00,
+  "total": 3840.00
+}
+
+
+
