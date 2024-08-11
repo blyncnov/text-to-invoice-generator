@@ -12,50 +12,101 @@ import { FormatPrice } from "@/lib/formatPrice";
 type fieldNameProps = "description" | "quantity" | "unitPrice" | "ItemSubTotal";
 
 const InvoiceDetails = () => {
-  const [products, setProducts] = useState<productFormDataProps[]>([
-    {
-      id: 1,
-      description: "",
-      quantity: "1",
-      unitPrice: "0",
-      ItemSubTotal: "0",
+  const [products, setProducts] = useState<productFormDataProps>({
+    invoiceNumber: "INVOICE_56847",
+    logo: "logo.png",
+    issue_date: 222222,
+    due_date: 2233333,
+    billingInfo: {
+      by_company: "",
+      by_address: "",
     },
-  ]);
-
-  // TODO: ADD NEW PRODUCT ITEM
-  const handleAddNewProduct = () => {
-    setProducts((prev) => [
-      ...prev,
+    clientInfo: {
+      to_company: "",
+      to_address: "",
+      to_email_address: "",
+    },
+    items: [
       {
-        id: products.length + 1,
+        id: 1,
         description: "",
-        quantity: "0",
+        quantity: "1",
         unitPrice: "0",
         ItemSubTotal: "0",
       },
-    ]);
+    ],
+    vat: 0,
+    grandTotal: 0,
+  });
+
+  // TODO: HANDLE BILLING INFO
+  const handleBillingInfoOnChangeEvent = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    const updatedProducts = { ...products };
+
+    products.billingInfo[name as "by_company" | "by_address"] = value;
+
+    // Update State
+    setProducts(updatedProducts);
+  };
+
+  // TODO: HANDLE CLIENT INFO
+  const handleClientInfoOnChangeEvent = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { name, value } = e.target;
+    const updatedProducts = { ...products };
+
+    products.clientInfo[
+      name as "to_company" | "to_address" | "to_email_address"
+    ] = value;
+
+    // Update State
+    setProducts(updatedProducts);
+  };
+
+  // TODO: ADD NEW PRODUCT ITEM
+  const handleAddNewProduct = () => {
+    setProducts((prev) => ({
+      ...prev,
+      items: [
+        ...prev.items,
+        {
+          id: products.items.length + 1,
+          description: "",
+          quantity: "1",
+          unitPrice: "0",
+          ItemSubTotal: "0",
+        },
+      ],
+    }));
   };
 
   // TODO: REMOVE PRODUCT ITEM
   const handleRemoveAProduct = (id: number) => {
-    const p = products.filter((p) => p.id !== id);
-    setProducts(p);
+    setProducts((i) => ({
+      ...i,
+      items: i.items.filter((item) => item.id !== id),
+    }));
   };
 
+  // TODO: HANDLE ITEMS
   const handleOnChangeEvent = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
     const { name, value } = e.target;
 
-    if (name in products[index]) {
-      const updatedProducts = [...products];
-      products[index][name as fieldNameProps] = value;
+    if (name in products.items[index]) {
+      const updatedProducts = { ...products };
+      products.items[index][name as fieldNameProps] = value;
 
       // Update Product SubTotal price
-      products[index]["ItemSubTotal"] = (
-        Number(products[index]["unitPrice"]) *
-        Number(products[index]["quantity"])
+      products.items[index]["ItemSubTotal"] = (
+        Number(products.items[index]["unitPrice"]) *
+        Number(products.items[index]["quantity"])
       ).toString();
 
       // Update State
@@ -64,9 +115,11 @@ const InvoiceDetails = () => {
   };
 
   // Calculate grand total price
-  const totalPrice = products.reduce((acc, product) => {
+  const totalPrice = products.items.reduce((acc, product) => {
     return acc + Number(product.ItemSubTotal);
   }, 0);
+
+  console.log(products);
 
   return (
     <main className="w-full max-w-[90%] py-6 mx-auto">
@@ -113,6 +166,8 @@ const InvoiceDetails = () => {
                         name="by_company"
                         id="by_company"
                         placeholder="Jeremytechie Inc."
+                        defaultValue={products.billingInfo.by_company}
+                        onChange={(e) => handleBillingInfoOnChangeEvent(e)}
                         className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                       />
                     </div>
@@ -124,6 +179,8 @@ const InvoiceDetails = () => {
                         name="by_address"
                         id="by_address"
                         placeholder="651 N Broad street, YK"
+                        defaultValue={products.billingInfo.by_address}
+                        onChange={(e) => handleBillingInfoOnChangeEvent(e)}
                         className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                       />
                     </div>
@@ -146,6 +203,8 @@ const InvoiceDetails = () => {
                         name="to_company"
                         id="to_company"
                         placeholder="Taiwo Boluwatife"
+                        defaultValue={products.clientInfo.to_company}
+                        onChange={(e) => handleClientInfoOnChangeEvent(e)}
                         className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                       />
                     </div>
@@ -157,6 +216,8 @@ const InvoiceDetails = () => {
                         name="to_address"
                         id="to_address"
                         placeholder="12 N' Skate Park street, WM"
+                        defaultValue={products.clientInfo.to_address}
+                        onChange={(e) => handleClientInfoOnChangeEvent(e)}
                         className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                       />
                     </div>
@@ -168,6 +229,8 @@ const InvoiceDetails = () => {
                         name="to_email_address"
                         id="to_email_address"
                         placeholder="bholuwatife00@gmail.com"
+                        defaultValue={products.clientInfo.to_email_address}
+                        onChange={(e) => handleClientInfoOnChangeEvent(e)}
                         className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                       />
                     </div>
@@ -202,7 +265,7 @@ const InvoiceDetails = () => {
               </div>
             </div>
 
-            {products.map((product, index) => {
+            {products.items.map((product, index) => {
               return (
                 <div
                   key={product.id}
@@ -239,10 +302,12 @@ const InvoiceDetails = () => {
                       name="ItemSubTotal"
                       id="ItemSubTotal"
                       value={product.ItemSubTotal}
+                      onChange={(e) => e}
                       className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                     />
                     <div>
-                      {products.indexOf(product) === products.length - 1 ? (
+                      {products.items.indexOf(product) ===
+                      products.items.length - 1 ? (
                         <div className="w-auto flex items-center gap-3">
                           <button
                             type="button"
@@ -266,7 +331,7 @@ const InvoiceDetails = () => {
                             </svg>
                           </button>
 
-                          {products.indexOf(product) !== 0 && (
+                          {products.items.indexOf(product) !== 0 && (
                             <button
                               type="button"
                               onClick={() => handleRemoveAProduct(product.id)}

@@ -1,33 +1,26 @@
-export interface FormProps {
+export interface productFormDataProps {
   invoiceNumber: string;
+  logo: string;
   issue_date: number;
   due_date: number;
   billingInfo: {
-    name: string;
-    address: string;
+    by_company: string;
+    by_address: string;
   };
   clientInfo: {
-    name: string;
-    address: string;
-    email_address: string;
+    to_company: string;
+    to_address: string;
+    to_email_address: string;
   };
   items: {
     id: number;
     description: string;
-    quantity: number;
-    unitPrice: number;
-    ItemSubTotal: number;
+    quantity: string;
+    unitPrice: string;
+    ItemSubTotal: string;
   }[];
   vat: number;
   grandTotal: number;
-}
-
-export interface productFormDataProps {
-  id: number;
-  description: string;
-  quantity: string;
-  unitPrice: string;
-  ItemSubTotal: string;
 }
 
 export default FormProps;
