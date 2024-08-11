@@ -112,7 +112,7 @@ const InvoiceDetails = () => {
                         type="text"
                         name="by_company"
                         id="by_company"
-                        placeholder="Paystack Inc."
+                        placeholder="Jeremytechie Inc."
                         className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                       />
                     </div>
@@ -123,7 +123,7 @@ const InvoiceDetails = () => {
                         type="text"
                         name="by_address"
                         id="by_address"
-                        placeholder="Harmony Estate, Alabata, Abeokuta"
+                        placeholder="651 N Broad street, YK"
                         className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                       />
                     </div>
@@ -156,7 +156,7 @@ const InvoiceDetails = () => {
                         type="text"
                         name="to_address"
                         id="to_address"
-                        placeholder="No 5, Kajola Street, Ijebu Ode"
+                        placeholder="12 N' Skate Park street, WM"
                         className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                       />
                     </div>
@@ -167,7 +167,7 @@ const InvoiceDetails = () => {
                         type="text"
                         name="to_email_address"
                         id="to_email_address"
-                        placeholder="info@text-invoice.io"
+                        placeholder="bholuwatife00@gmail.com"
                         className="w-full rounded-lg py-1.5 px-2 placeholder:text-main/20 placeholder:font-light bg-[rgba(26,19,4,0.1)] border border-main/40"
                       />
                     </div>
